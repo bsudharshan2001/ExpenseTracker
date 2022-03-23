@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'placeholder_widget.dart';
 class Home extends StatefulWidget {
   @override
   State createState() {
@@ -8,36 +8,57 @@ class Home extends StatefulWidget {
 }
 
 class _HomeState extends State {
+  int _currentIndex = 0;
+  final List _children = [
+    PlaceholderWidget(Colors.white),
+    PlaceholderWidget(Colors.deepOrange),
+    PlaceholderWidget(Colors.green),
+    PlaceholderWidget(Colors.green),
+  ];
+  @override
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Kubera'),
-        backgroundColor: Colors.lightGreenAccent,
-        centerTitle: true,
-
+        title: Text('Kubera'),
+        actions: [
+          Icon(Icons.account_circle_outlined)
+        ],
       ),
+      body: _children[_currentIndex], // new
       bottomNavigationBar: BottomNavigationBar(
-        currentIndex: 0, // this will be set when a new tab is tapped
+        backgroundColor: Colors.lightGreenAccent,
+        onTap: onTabTapped, // new
+        currentIndex: _currentIndex, // new
         items: [
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.home),
+          new BottomNavigationBarItem(
+            icon: Icon(Icons.home),
             label: 'Home',
+            backgroundColor: Colors.lightGreenAccent
           ),
-          BottomNavigationBarItem(
-            icon: const Icon(Icons.mail),
+          new BottomNavigationBarItem(
+            icon: Icon(Icons.analytics),
             label: 'Analytics',
+              backgroundColor: Colors.lightGreenAccent,
           ),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.download_sharp),
-              label: 'Downloads'
+          new BottomNavigationBarItem(
+              icon: Icon(Icons.cloud),
+              label: 'Receipts',
+              backgroundColor: Colors.lightGreenAccent,
           ),
-          BottomNavigationBarItem(
-              icon: const Icon(Icons.person),
-              label: 'Profile'
-          )
+          new BottomNavigationBarItem(
+              icon: Icon(Icons.person),
+              label: 'Profile',
+              backgroundColor: Colors.lightGreenAccent,
+          ),
+
         ],
       ),
     );
+  }
+  void onTabTapped(int index) {
+    setState(() {
+      _currentIndex = index;
+    });
   }
 }
